@@ -3,4 +3,6 @@
     <color name="primery">#5481b5</color>
     <color name="primeryDark">#2e5b8f</color>
     <color name="backGround">#7a7a7a</color>
+    <color name="color_white">#ffffff</color>
+
 </resources>
