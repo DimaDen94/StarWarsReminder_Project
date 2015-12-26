@@ -4,9 +4,11 @@ package dmitrydenezho.com.starwarsreminder;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -46,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void initNavigationView() {
         drawer = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.view_navigation_open,R.string.view_navigation_close);
+        drawer.setDrawerListener(toggle);
+        NavigationView navigationView = (NavigationView)findViewById(R.id.navigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                drawer.closeDrawers();
+                switch (menuItem.getItemId()){
+                    case R.id.notification:
+                        showNotificationTab();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
 
@@ -59,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
+    }
+    private void showNotificationTab(){
+        viewPager.setCurrentItem(1);
     }
 
 }
