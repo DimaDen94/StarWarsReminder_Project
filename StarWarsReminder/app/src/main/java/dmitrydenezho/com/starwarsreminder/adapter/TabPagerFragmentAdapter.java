@@ -1,45 +1,52 @@
 package dmitrydenezho.com.starwarsreminder.adapter;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import dmitrydenezho.com.starwarsreminder.fragments.FirstFragment;
+import java.util.HashMap;
+import java.util.Map;
+
+import dmitrydenezho.com.starwarsreminder.R;
+import dmitrydenezho.com.starwarsreminder.fragments.AbstractTabFragment;
+import dmitrydenezho.com.starwarsreminder.fragments.BirthdayFragment;
+import dmitrydenezho.com.starwarsreminder.fragments.HistoryFragment;
+import dmitrydenezho.com.starwarsreminder.fragments.IdeasFragment;
+import dmitrydenezho.com.starwarsreminder.fragments.ToDoFragment;
 
 /**
  * Created by Dmitry on 26.12.2015.
  */
 public class TabPagerFragmentAdapter extends FragmentPagerAdapter {
-    private String[] tabs;
-    public TabPagerFragmentAdapter(FragmentManager fm) {
+
+    private Map<Integer, AbstractTabFragment> tabs;
+    private Context context;
+
+    public TabPagerFragmentAdapter(FragmentManager fm, Context context) {
         super(fm);
-        tabs = new String[]{"Таб 1","Напонимание","Tab 2"};
-
-
+        this.context = context;
+        tabs  = new HashMap<>();
+        tabs.put(0, HistoryFragment.getInstance(context));
+        tabs.put(1, IdeasFragment.getInstance(context));
+        tabs.put(2, ToDoFragment.getInstance(context));
+        tabs.put(3, BirthdayFragment.getInstance(context));
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabs[position];
+        return tabs.get(position).getTitle();
     }
 
     @Override
-    public android.support.v4.app.Fragment getItem(int position) {
-        switch (position){
-            case 0:
+    public Fragment getItem(int position) {
 
-                return FirstFragment.getInstance();
-            case 1:
-                return FirstFragment.getInstance();
+        return tabs.get(position);
 
-            case 2:
-                return FirstFragment.getInstance();
-        }
-        return null;
     }
 
     @Override
     public int getCount() {
-        return tabs.length;
+        return tabs.size();
     }
 }

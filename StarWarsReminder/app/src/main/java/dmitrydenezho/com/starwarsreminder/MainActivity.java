@@ -3,6 +3,7 @@ package dmitrydenezho.com.starwarsreminder;
 
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         drawer = (DrawerLayout) findViewById(R.id.drawer);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.view_navigation_open,R.string.view_navigation_close);
         drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+
         NavigationView navigationView = (NavigationView)findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void intTabs() {
-        TabPagerFragmentAdapter adapter = new TabPagerFragmentAdapter(getSupportFragmentManager());
+        TabPagerFragmentAdapter adapter = new TabPagerFragmentAdapter(getSupportFragmentManager(),this);
 
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
